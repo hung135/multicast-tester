@@ -18,19 +18,21 @@ sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, ttl)
 try:
 
     # Send data to the multicast group
-    print(sys.stderr, 'sending "%s"' % message)
-    sent = sock.sendto(message, multicast_group)
+    for xxx in range(1,50000):
+        #print(sys.stderr, 'sending "%s"' % message)
+        
+        sent = sock.sendto(bytes('hello world','utf8'), multicast_group)
 
-    # Look for responses from all recipients
-    while True:
-        print(sys.stderr, 'waiting to receive')
-        try:
-            data, server = sock.recvfrom(16)
-        except socket.timeout:
-            print(sys.stderr, 'timed out, no more responses')
-            break
-        else:
-            print(sys.stderr, 'received "%s" from %s' % (data, server))
+        # # Look for responses from all recipients
+        # while True:
+        #     print(sys.stderr, 'waiting to receive')
+        #     try:
+        #         data, server = sock.recvfrom(16)
+        #     except socket.timeout:
+        #         print(sys.stderr, 'timed out, no more responses')
+        #         break
+        #     else:
+        #         print(sys.stderr, 'received "%s" from %s' % (data, server))
 
 finally:
     print(sys.stderr, 'closing socket')
