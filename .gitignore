@@ -4,3 +4,4 @@
 *.so
 version.py
 tmp/
+artifacts

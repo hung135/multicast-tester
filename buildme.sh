@@ -13,9 +13,10 @@ echo "\"\"\"">>version.py
 echo "}">>version.py
 #docker build -t buildbase -f BuildBase.Dockerfile .
 docker build -t builder -f Build.Dockerfile .
-#docker rm buildmecentos
-#ßdocker run -it -v /tmp/deploy-ready/:/Build/output builder  
-#docker run -it --name buildmecentos -v /tmp/deploy-ready/:/Build/output builder /Build/tmp/pubsub --version
+docker rm buildmecentos
+#docker run -it -v /tmp/deploy-ready/:/Build/output builder  
+docker run --name buildmecentos builder 
 #docker run -it --name buildmecentos -v /tmp/deploy-ready/:/Build/output builder cp switchboard_centos_6_10.tar /Build/output/
-#docker cp buildmecentos:/Build/pubsub.tar pubsub_centos_6_10.tar 
+docker cp buildmecentos:/Build/pubsub.tar ./artifacts/pubsub_centos_6_10.tar 
 # debug docker --rm -it <hash> sh
+docker rm buildmecentos
