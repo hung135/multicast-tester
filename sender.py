@@ -2,8 +2,12 @@ import socket
 import struct
 import sys
 
+NumMessages=200
 message = b'very important data'
-multicast_group = ('224.3.29.71', 10000)
+multicast_groups = ['224.3.29.71','224.3.29.72']
+groups=[]
+for inc, group in enumerate(multicast_groups,0):
+    groups.append(('224.3.29.71', 10000+inc))
 
 # Create the datagram socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -16,17 +20,20 @@ sock.settimeout(0.2)
 ttl = struct.pack('b', 1)
 bytest_string=''
 for xxx in range(1, 1400):
-    bytest_string=''
+    bytest_string=bytest_string+'1'
 
 x=bytes(bytest_string,'utf8')
 sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, ttl)
 try:
 
     # Send data to the multicast group
-    for xxx in range(1, 5000001) :
+    msg_sent=0
+    for xxx in range(0, NumMessages) :
         #print(sys.stderr, 'sending "%s"' % message)
+        for group in groups:
         
-        sent = sock.sendto(x, multicast_group)
+            sent = sock.sendto(x, group)
+            msg_sent+=1
 
         # # Look for responses from all recipients
         # while True:
@@ -38,7 +45,7 @@ try:
         #         break
         #     else:
         #         print(sys.stderr, 'received "%s" from %s' % (data, server))
-
+    print("Messages sent: ",msg_sent)
 finally:
     print(sys.stderr, 'closing socket')
     sock.close()
