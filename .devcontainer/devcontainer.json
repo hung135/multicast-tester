@@ -3,8 +3,10 @@
 {
 	"name": "Python 3",
 	"context": "..",
-	"dockerFile": "Dockerfile",
-
+	"service": "app",
+	"workspaceFolder": "/workspace",
+	//"dockerFile": "Dockerfile",
+	"dockerComposeFile": "docker-compose.yml",
 	// Use 'settings' to set *default* container specific settings.json values on container create. 
 	// You can edit these settings after create using File > Preferences > Settings > Remote.
 	"settings": { 
@@ -29,6 +31,6 @@
 
 	// Add the IDs of extensions you want installed when the container is created in the array below.
 	"extensions": [
-		"ms-python.python"
+		"ms-python.python","ms-azuretools.vscode-docker"
 	]
 }

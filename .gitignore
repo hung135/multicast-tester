@@ -2,3 +2,5 @@
 *.a
 *.pyc
 *.so
+version.py
+tmp/
