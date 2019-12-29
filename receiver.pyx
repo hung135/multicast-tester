@@ -21,7 +21,7 @@ def receive():
     sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
     # Receive/respond loop
     msg_received=0
-    while True (bool):
+    while True :
         #print(sys.stderr, '\nwaiting to receive message: ',msg_received)
         msg_received+=1
         data, address = sock.recvfrom(1024)
@@ -29,8 +29,9 @@ def receive():
         #print(sys.stderr, 'received %s bytes from %s' % (len(data), address))
         #print(sys.stderr, data)
         
-        if msg_received%50000==0:
+        if msg_received%10000==0:
             print(msg_received)
+            #sys.exit()
             
 
         #print(sys.stderr, 'sending acknowledgement to', address)

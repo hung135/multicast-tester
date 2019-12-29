@@ -14,14 +14,19 @@ sock.settimeout(0.2)
 # Set the time-to-live for messages to 1 so they do not go past the
 # local network segment.
 ttl = struct.pack('b', 1)
+bytest_string=''
+for xxx in range(1, 1400):
+    bytest_string=''
+
+x=bytes(bytest_string,'utf8')
 sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, ttl)
 try:
 
     # Send data to the multicast group
-    for xxx in range(1,50000):
+    for xxx in range(1, 5000001) :
         #print(sys.stderr, 'sending "%s"' % message)
         
-        sent = sock.sendto(bytes('hello world','utf8'), multicast_group)
+        sent = sock.sendto(x, multicast_group)
 
         # # Look for responses from all recipients
         # while True:
