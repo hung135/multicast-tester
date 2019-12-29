@@ -11,7 +11,7 @@ message = b'very important data'
 multicast_groups = read_multicast.get_my_groups(1)
 groups=[]
 for inc, group in enumerate(multicast_groups,0):
-    groups.append(('224.3.29.71', 10000+inc))
+    groups.append((group, 10000+inc))
 
 # Create the datagram socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
