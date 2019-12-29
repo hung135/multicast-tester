@@ -10,8 +10,10 @@ message = b'very important data'
   
 multicast_groups = read_multicast.get_my_groups(1)
 groups=[]
+ 
 for inc, group in enumerate(multicast_groups,0):
     groups.append((group, 10000+inc))
+     
 
 # Create the datagram socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -36,22 +38,11 @@ try:
         for xxx in range(0, NumMessages) :
             #print(sys.stderr, 'sending "%s"' % message)
             for group in groups:
-            
+                #print(group)
                 sent = sock.sendto(x, group)
                 msg_sent+=1
-                
-
-            # # Look for responses from all recipients
-            # while True:
-            #     print(sys.stderr, 'waiting to receive')
-            #     try:
-            #         data, server = sock.recvfrom(16)
-            #     except socket.timeout:
-            #         print(sys.stderr, 'timed out, no more responses')
-            #         break
-            #     else:
-            #         print(sys.stderr, 'received "%s" from %s' % (data, server))
-        print("Going to Sleep: Messages sent: ",msg_sent)
+ 
+        print("Going to Sleep 1 sec: Messages sent: ",msg_sent)
         time.sleep(1)
 finally:
     print(sys.stderr, 'closing socket')

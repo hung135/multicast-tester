@@ -4,7 +4,7 @@ import socket
 def get_my_ippaddr():
      
     x=set([i[4][0] for i in socket.getaddrinfo(socket.gethostname(), None)])
-    print(x)
+     
     return list(x)
 
 
@@ -24,17 +24,17 @@ def get_my_groups(pubsub=1):
         line_count=0
         for row in csv_reader:
             if line_count == 0:
-                print(f'Column names are {", ".join(row)}')
+                #print(f'Column names are {", ".join(row)}')
                 line_count +=1 
             else:
-                
-                 
+
                 if (int(row[2])==pubsub):
-                     
+
                     for ip in my_ips:
-                        print(row[1],ip)
+                         
                         if row[0]==ip:
                             multicast.append(row[1])
+     
     return multicast
 
  

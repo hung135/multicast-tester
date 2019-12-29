@@ -26,6 +26,7 @@ RUN cd /Build/scripts/ && python3 /Build/scripts/setup.py build_ext --inplace
 
 RUN pyinstaller /Build/scripts/sender.py  --onefile --paths $PYTHONPATH
 RUN pyinstaller /Build/scripts/receive_test.py  --onefile --paths $PYTHONPATH
+RUN mv /Build/scripts/multicast.csv /Build/dist/ 
 RUN mkdir tmp 
 RUN tar -czvf pubsub.tar -C /Build/dist/ . 
 RUN tar -xvf ./pubsub.tar -C ./tmp/

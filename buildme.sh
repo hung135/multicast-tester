@@ -17,6 +17,7 @@ docker rm buildmecentos
 #docker run -it -v /tmp/deploy-ready/:/Build/output builder  
 docker run --name buildmecentos builder 
 #docker run -it --name buildmecentos -v /tmp/deploy-ready/:/Build/output builder cp switchboard_centos_6_10.tar /Build/output/
-docker cp buildmecentos:/Build/pubsub.tar ./artifacts/pubsub_centos_6_10.tar 
+mkdir -p artifacts
+docker cp buildmecentos:/Build/pubsub.tar ./artifacts/pubsub_centos7.tar 
 # debug docker --rm -it <hash> sh
 docker rm buildmecentos

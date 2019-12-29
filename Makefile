@@ -6,7 +6,7 @@ buildme:
 	./buildme.sh
 
 compile:
-	python setup.py build_ext --inplace 
+	cd scripts && python setup.py build_ext --inplace 
 
 clean:
 	docker image prune
