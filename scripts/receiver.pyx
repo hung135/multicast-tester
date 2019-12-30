@@ -41,14 +41,17 @@ def strobe(hertz,shared_array):
         time.sleep(sleep_time)
         
         if shared_array[1]==0:
-            print("Time to Send Cycle Blown")
+            print("Time to Send Cycle Blownxxx")
+            sys.exit()
+            print("no exit")
         shared_array[1]=0
 
 
-def sender(NumMessages,shared_array,multicast_groups):
+def sender(NumMessages,shared_array,list multicast_groups):
     
-    groups=[]
-    
+    cdef list groups=[]
+    cdef int msg_sent,looper
+     
     for inc, group in enumerate(multicast_groups,0):
         groups.append((group, 10000+inc))
         
@@ -73,10 +76,11 @@ def sender(NumMessages,shared_array,multicast_groups):
 
         # Send data to the multicast group
         msg_sent=0
-        while True:
+        looper=1
+        while looper>0:
             if shared_array[1]==0:
                 #for xxx in range(0, NumMessages) :
-                    #print(sys.stderr, 'sending "%s"' % message)
+                     
                 for group in groups:
                     #print(group)
                     sent = sock.sendto(x, group)

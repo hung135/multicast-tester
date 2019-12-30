@@ -5,7 +5,7 @@ import read_multicast
 import receiver
 import time
 NumMessages=1
-hertz = 200
+hertz = 100
 message = b'very important data'
 
 
@@ -27,6 +27,8 @@ def strobe(hertz,shared_array):
         
         if shared_array[1]==0:
             print("Time to Send Cycle Blown")
+            sys.exit()
+            print("xxx")
         shared_array[1]=0
 
 def sender(NumMessages,shared_array):
@@ -54,7 +56,7 @@ def sender(NumMessages,shared_array):
     x=bytes(bytest_string,'utf8')
     sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, ttl)
     try:
-
+         
         # Send data to the multicast group
         msg_sent=0
         while True:
