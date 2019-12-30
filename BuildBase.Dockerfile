@@ -14,9 +14,7 @@ RUN easy_install-3.6 pip && \
 RUN mkdir -p Build/
 WORKDIR Build/
 
-COPY scripts/ /Build/scripts/
 COPY requirements.txt /Build/scripts/
-ENV PYTHONPATH="/Build/scripts/"
 RUN pip3 install -r scripts/requirements.txt
  
   

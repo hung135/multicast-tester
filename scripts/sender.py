@@ -3,7 +3,7 @@ import struct
 import sys
 import read_multicast
 import time
-NumMessages=200
+NumMessages=50
 message = b'very important data'
 
 
