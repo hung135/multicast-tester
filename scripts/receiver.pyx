@@ -35,15 +35,14 @@ def receive(proc_num,msg_received,multicast_group):
 
 
 def strobe(hertz,shared_array):
-    sleep_time=(1000/hertz)/1000
+    cdef double sleep_time=(1000/hertz)/1000
     print(sleep_time)
     while True:
         time.sleep(sleep_time)
         
         if shared_array[1]==0:
-            print("Time to Send Cycle Blownxxx")
-            sys.exit()
-            print("no exit")
+            print("Time to Send Cycle Blown")
+              
         shared_array[1]=0
 
 
@@ -51,9 +50,14 @@ def sender(NumMessages,shared_array,list multicast_groups):
     
     cdef list groups=[]
     cdef int msg_sent,looper
-     
+    cdef bytes data,ttl
+    cdef (char*,int) tup
+    cdef (char*,int) multicastip_port
+
     for inc, group in enumerate(multicast_groups,0):
-        groups.append((group, 10000+inc))
+        
+        tup=(bytes(group,'utf8'), 10000+inc)
+        groups.append(tup)
         
 
     # Create the datagram socket
@@ -61,7 +65,7 @@ def sender(NumMessages,shared_array,list multicast_groups):
 
     # Set a timeout so the socket does not block indefinitely when trying
     # to receive data.
-    sock.settimeout(0.2)
+    #sock.settimeout(0.2)
     # Set the time-to-live for messages to 1 so they do not go past the
     # local network segment.
     ttl = struct.pack('b', 1)
@@ -70,7 +74,7 @@ def sender(NumMessages,shared_array,list multicast_groups):
     for i in range(1, 1400):
         bytest_string=bytest_string+'1'
 
-    x=bytes(bytest_string,'utf8')
+    data=bytes(bytest_string,'utf8')
     sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, ttl)
     try:
 
@@ -81,9 +85,9 @@ def sender(NumMessages,shared_array,list multicast_groups):
             if shared_array[1]==0:
                 #for xxx in range(0, NumMessages) :
                      
-                for group in groups:
-                    #print(group)
-                    sent = sock.sendto(x, group)
+                for multicastip_port in groups:
+                    
+                    sock.sendto(data, multicastip_port)
                     msg_sent+=1
  
                 shared_array[0]=msg_sent

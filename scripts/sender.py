@@ -5,7 +5,7 @@ import read_multicast
 import receiver
 import time
 NumMessages=1
-hertz = 100
+hertz = 200
 message = b'very important data'
 
 
@@ -19,17 +19,17 @@ import multiprocessing as mp
 def run(proc,shared_array):
     sender(NumMessages,shared_array)
 
-def strobe(hertz,shared_array):
-    sleep_time=(1000/hertz)/1000
-    print(sleep_time)
-    while True:
-        time.sleep(sleep_time)
+# def strobe(hertz,shared_array):
+#     sleep_time=(1000/hertz)/1000
+#     print(sleep_time)
+#     while True:
+#         time.sleep(sleep_time)
         
-        if shared_array[1]==0:
-            print("Time to Send Cycle Blown")
-            sys.exit()
-            print("xxx")
-        shared_array[1]=0
+#         if shared_array[1]==0:
+#             print("Time to Send Cycle Blown")
+             
+#             print("xxx")
+#         shared_array[1]=0
 
 def sender(NumMessages,shared_array):
     multicast_groups = read_multicast.get_my_groups(1)
@@ -65,7 +65,7 @@ def sender(NumMessages,shared_array):
                     #print(sys.stderr, 'sending "%s"' % message)
                 for group in groups:
                     #print(group)
-                    sent = sock.sendto(x, group)
+                    sock.sendto(x, group)
                     msg_sent+=1
  
                 shared_array[0]=msg_sent
@@ -97,8 +97,8 @@ if __name__ == '__main__':
         
 
         total_msg+=int(shared_array[0])
-        if shared_array[1]==0:
-            print("Time to Send Cycle Blown")
+        # if shared_array[1]==0:
+        #     print("Time to Send Cycle Blown")
         shared_array[1]=0
         print("Total Messages Sent: ", total_msg)
     for l in mp_proc_list:
