@@ -5,7 +5,7 @@ import read_multicast
 import receiver
 import time
 NumMessages=1
-hertz = 200
+hertz = 1000
 message = b'very important data'
 
 
@@ -91,12 +91,12 @@ if __name__ == '__main__':
     strobe.start()
     
     while True:
-        time.sleep(1)
+        time.sleep(5)
         total_msg=0
          
         
 
-        total_msg+=int(shared_array[0])
+        total_msg=int(shared_array[0])
         # if shared_array[1]==0:
         #     print("Time to Send Cycle Blown")
         shared_array[1]=0
